@@ -30,13 +30,13 @@ if (!$getList) {
     die($dbhandle->error);
 }
 
-while($row1=$getList->fetch_assoc()){
-
-    $data[]=$row1;
+$arr = array();
+if ($getList->num_rows > 0) {
+    while ($row = $getList->fetch_assoc()) {
+        $arr[] = $row;
+    }
 }
 
-
-print json_encode($data);
-
+echo $json_response = json_encode($arr);
 
 ?>

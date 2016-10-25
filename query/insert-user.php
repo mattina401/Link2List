@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by PhpStorm.
  * User: kim
@@ -39,6 +40,9 @@ if($check->num_rows > 0) {
 
 
     $q->execute();
+
+    $_SESSION['userinfo'] = $email;
+
     echo 'succeed';
 }
 

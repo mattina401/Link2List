@@ -12,5 +12,4 @@ define("DATABASE","link2list");
 
 $dbhandle=new mysqli(HOSTNAME,USERNAME,PASSWORD,DATABASE) or die("Unable to Connect DB");
 
-
 ?>

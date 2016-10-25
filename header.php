@@ -20,6 +20,7 @@
     <script src="js/angular.js"></script>
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/taskman.css" rel="stylesheet">
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
 

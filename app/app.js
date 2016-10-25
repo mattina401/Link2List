@@ -5,8 +5,6 @@ var app = angular.module('myApp', []);
 
 app.controller('cntrl', function ($scope, $http, $window) {
 
-
-
     //variables
     $scope.signUpInfo = {
         email: undefined,
@@ -33,8 +31,6 @@ app.controller('cntrl', function ($scope, $http, $window) {
 
             //$scope.msg = "Data Inserted";
             $scope.displayItem();
-
-
         })
 
     }
@@ -80,7 +76,6 @@ app.controller('cntrl', function ($scope, $http, $window) {
         })
     }
 
-
     $scope.getItem = function (listId) {
 
         $http.post("./query/get-item.php", {'listId': listId}).success(function (data) {
@@ -90,39 +85,59 @@ app.controller('cntrl', function ($scope, $http, $window) {
         })
     }
 
-
     $scope.goTable = function (listId) {
 
         var inputData = {
             listId: listId
         }
-
         $http.post("./query/table.php", inputData).success(function (data) {
             $window.location.href = './table.php';
-
         })
-
     }
 
 });
 
-
+//listController
 app.controller('listController', function ($scope, $http, $window) {
 
     // display lists
     $scope.displayList = function () {
 
         $http.post("./query/select-list.php").success(function (data) {
-            $scope.list = data;
-            $scope.msg1 = "test display list"
+            $scope.lists = data;
+            console.log(data);
         });
     }
+
+    // add list
+    $scope.addList = function (listName) {
+
+        $http.post("./query/add-list.php?listName=" + listName).success(function (data) {
+            $scope.displayList();
+            console.log(listName);
+            console.log(data);
+
+        });
+    }
+
+    // share list
+    $scope.shareList = function (listId) {
+
+        $http.post("./query/share-list.php?listId=" + listId).success(function (data) {
+            $scope.displayList();
+            console.log(listId);
+            console.log(data);
+
+        });
+    }
+
+
     $scope.displayList();
 
 });
 
+//itemController
 app.controller('itemController', function ($scope, $http, $window) {
-
 
     $scope.table = function () {
 
@@ -137,8 +152,6 @@ app.controller('itemController', function ($scope, $http, $window) {
     $scope.table();
 
 });
-
-
 
 //taskController
 app.controller('tasksController', function ($scope, $http) {
@@ -177,4 +190,61 @@ app.controller('tasksController', function ($scope, $http) {
         });
     };
 
+});
+
+
+// send listId to modal
+
+app.controller('MainCtrl', ['$scope', 'dataShare',
+    function ($scope, dataShare) {
+        $scope.send = function (listId) {
+            dataShare.sendData(listId);
+            console.log(listId);
+        };
+
+    }
+]);
+app.controller('MainCtrl2', ['$scope', '$http', 'dataShare',
+
+    function ($scope, $http, dataShare) {
+
+        //variables
+        $scope.inviteInfo = {
+            email: undefined,
+            listId: undefined
+
+        }
+
+        $scope.invite = function () {
+
+            var inputData =
+            {
+                email: $scope.inviteInfo.email,
+                listId: $scope.inviteInfo.listId
+            }
+
+            $http.post("./query/invite.php",inputData).success(function (data) {
+                $scope.data = data;
+                console.log(data);
+            });
+        };
+
+
+        $scope.$on('data_shared', function () {
+            var listId = dataShare.getData();
+            $scope.inviteInfo.listId = listId;
+        });
+    }
+]);
+app.factory('dataShare', function ($rootScope) {
+    var service = {};
+    service.data = false;
+    service.sendData = function (data) {
+        this.data = data;
+        $rootScope.$broadcast('data_shared');
+    };
+    service.getData = function () {
+        return this.data;
+    };
+    return service;
 });
