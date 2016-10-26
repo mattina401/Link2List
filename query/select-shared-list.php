@@ -1,14 +1,11 @@
 <?php
 session_start();
 include "../connectdb.php";
-$status = '%';
-if (isset($_GET['status'])) {
-    $status = $_GET['status'];
-}
 
-$listId = $_SESSION['listId'];
+$userId = $_SESSION['userId'];
 
-$query = "select itemId, itemName, status, updatedTime from item where listId= '$listId' AND status like '$status' order by status,itemId desc";
+$query = "SELECT * FROM list as a JOIN shared as b ON a.listId = b.listId AND b.userId = '$userId' AND b.toggle = '1'";
+
 $result = $dbhandle->query($query) or die($dbhandle->error . __LINE__);
 
 $arr = array();
@@ -20,4 +17,5 @@ if ($result->num_rows > 0) {
 
 # JSON-encode the response
 echo $json_response = json_encode($arr);
+
 ?>

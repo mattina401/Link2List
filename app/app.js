@@ -18,6 +18,11 @@ app.controller('cntrl', function ($scope, $http, $window) {
         password: undefined
     }
 
+    $scope.change = {
+        password: undefined,
+        confirmPassword: undefined
+    }
+
     //display items
     $scope.displayItem = function () {
         $http.get("./query/select.php").success(function (data) {
@@ -69,6 +74,27 @@ app.controller('cntrl', function ($scope, $http, $window) {
 
     }
 
+    $scope.changePassword = function () {
+
+        var inputData = {
+            password: $scope.change.password,
+            confirmPassword: $scope.change.confirmPassword
+        }
+
+        $http.post("./query/update-password.php", inputData).success(function (data) {
+
+            console.log(data);
+        })
+
+    }
+
+    $scope.logout = function () {
+        $http.post("./query/logout.php").success(function (data) {
+            $window.location.href = './index.php';
+            console.log(data);
+        })
+    }
+
     $scope.removeItem = function (item) {
         $http.post("./query/remove.php", {'item': item}).success(function () {
             //$scope.msg = "Data Deletion successfull";
@@ -109,6 +135,17 @@ app.controller('listController', function ($scope, $http, $window) {
         });
     }
 
+
+    // display shared lists
+    $scope.displayShareList = function () {
+
+        $http.post("./query/select-shared-list.php").success(function (data) {
+            $scope.sharedLists = data;
+            console.log(data);
+        });
+    }
+
+
     // add list
     $scope.addList = function (listName) {
 
@@ -133,6 +170,7 @@ app.controller('listController', function ($scope, $http, $window) {
 
 
     $scope.displayList();
+    $scope.displayShareList();
 
 });
 
@@ -142,7 +180,6 @@ app.controller('itemController', function ($scope, $http, $window) {
     $scope.table = function () {
 
         $http.post("./query/get-item.php").success(function (data) {
-            console.log(data[0]);
             $scope.itemList = data[0];
 
         })
@@ -156,12 +193,14 @@ app.controller('itemController', function ($scope, $http, $window) {
 //taskController
 app.controller('tasksController', function ($scope, $http) {
     getTask(); // Load all available tasks
+
     function getTask() {
         $http.get("ajax/getTask.php").success(function (data) {
             $scope.tasks = data;
             console.log(data);
         });
     };
+
     $scope.addTask = function (task) {
         $http.post("ajax/addTask.php?task=" + task).success(function (data) {
             getTask();
@@ -189,6 +228,22 @@ app.controller('tasksController', function ($scope, $http) {
             $scope.msg = item + "" + status + "" + task;
         });
     };
+
+
+    $scope.editTask = function (editInput, itemId) {
+
+        var inputData = {
+            editInput: editInput,
+            itemId: itemId
+        }
+
+        $http.post("ajax/editTask.php", inputData).success(function (data) {
+            getTask();
+            console.log(data);
+
+        });
+    };
+
 
 });
 
@@ -223,7 +278,7 @@ app.controller('MainCtrl2', ['$scope', '$http', 'dataShare',
                 listId: $scope.inviteInfo.listId
             }
 
-            $http.post("./query/invite.php",inputData).success(function (data) {
+            $http.post("./query/invite.php", inputData).success(function (data) {
                 $scope.data = data;
                 console.log(data);
             });
@@ -248,3 +303,43 @@ app.factory('dataShare', function ($rootScope) {
     };
     return service;
 });
+
+
+//inviteController
+app.controller('invite', function ($scope, $http, $window) {
+
+    $scope.getInvite = function () {
+
+        $http.post("./query/get-invite.php").success(function (data) {
+            $scope.inviteList = data;
+            console.log(data);
+
+        })
+
+    }
+
+    $scope.accept = function (sharedId) {
+
+        $http.post("./query/accept.php?sharedId=" + sharedId).success(function (data) {
+            console.log(data);
+            $scope.getInvite();
+        })
+
+    }
+
+    $scope.decline = function (sharedId) {
+
+        $http.post("./query/decline.php?sharedId=" + sharedId).success(function (data) {
+            console.log(data);
+            $scope.getInvite();
+        })
+
+    }
+
+
+    $scope.getInvite();
+
+
+});
+
+

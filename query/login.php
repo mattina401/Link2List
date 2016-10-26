@@ -26,7 +26,7 @@ if (!$check) {
 if($check->num_rows > 0) {
     $_SESSION['userinfo'] = $email;
     echo 'succeed';
-    
+
 } else {
     echo 'wrong email or password';
 }
