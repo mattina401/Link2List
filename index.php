@@ -1,6 +1,6 @@
 <?php include("header.php"); ?>
 
-<section class="showcase">
+<section class="showcase img-responsive">
     <div class="container">
         <h1>Share your List</h1>
         <p>Connect your tasks with others</p>
@@ -21,10 +21,10 @@
 <section class="feature">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <img src="img/list.JPG">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <img class="img-responsive" src="img/list.JPG">
             </div>
-            <div class="col-md-6" style="padding: 50px 0 0 100px">
+            <div class="col-md-6 col-sm-6 col-xm-12" style="padding: 50px 0 0 0px">
                 <h1>Manage everything in one place</h1>
                 <p>With Link2List, you can manage your personal daily tasks, team project, grocery list in one place</p>
             </div>
@@ -33,10 +33,10 @@
         <hr>
         <br><br><br>
         <div class="row">
-            <div class="pull-right col-md-6">
-                <img src="img/share2.JPG" style="height: 250px; width: 400px">
+            <div class="pull-right col-md-6 col-sm-6 col-xs-12">
+                <img class="img-responsive" src="img/share2.JPG" style="height: 250px; width: 400px">
             </div>
-            <div class="col-md-6" style="padding: 50px 40px 0 0">
+            <div class="col-md-6 col-sm-6 col-xs-12" style="padding: 50px 0px 0 0">
                 <h1>Share your tasks with other</h1>
                 <p>Increase your team's productivity with shared project's tasks.</p>
             </div>
@@ -45,10 +45,10 @@
         <hr>
         <br><br><br>
         <div class="row">
-            <div class="col-md-6" style="left:-100px;">
-                <img src="img/task.JPG" style="width: 600px">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <img class="img-responsive" src="img/task.JPG" style="height:250px; width: 600px">
             </div>
-            <div class="col-md-6" style="padding: 50px 0 0 100px">
+            <div class="col-md-6 col-sm-6 col-xs-12" style="padding: 50px 0 0 0px">
                 <h1>Have your own simple task manager</h1>
                 <p>Using list manager, you can manage your tasks easily</p>
             </div>
@@ -61,7 +61,7 @@
     <div class="container">
         <br><br><br>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="box">
                     <i class="fa fa-users" aria-hidden="true"></i>
                     <h3>Share</h3>
@@ -69,15 +69,15 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="box">
                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                     <h3>Daily Planner</h3>
-                    <p>Manage your daily plan and tasks with Link2List</p>
+                    <p>Manage your daily plan and tasks easily with Link2List</p>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="box">
                     <i class="fa fa-list" aria-hidden="true"></i>
                     <h3>List Management</h3>
