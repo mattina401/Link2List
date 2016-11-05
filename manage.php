@@ -15,24 +15,6 @@ if ($_SESSION['userId'] == null)
                 <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="list in displayListData"
                      style="padding: 10px; margin-top:10px; margin-bottom:10px;">
 
-<!--
-                    <div class="col-md-8 col-sm-8 col-xs-8" style="border: 1px dashed gray; position: absolute"
-                         ng-init="Clicked=false;" ng-if="Clicked">
-
-                        <div class="">
-                            <input style="position: relative; max-width: 140px;" type="text" placeholder="{{list.listName}}">
-                        </div>
-                        <div class="">
-                            <textarea placeholder="{{list.description}}" style="max-width: 140px;"></textarea>
-                        </div>
-
-                        <div class="">
-                            <a class="glyphicon glyphicon-pencil" ng-click="">apply</a>
-                        </div>
-
-                    </div>
-
--->
                     <div class="text-center">
                         <h2 id="list-name" ng-click="goTable(list.listId)">
                             <a style="color: #8ED2C9">{{list.listName}}</a></h2>
